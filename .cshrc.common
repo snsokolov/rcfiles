@@ -1,0 +1,67 @@
+# Exports
+setenv SHELL            /bin/tcsh
+setenv EDITOR           edit
+setenv RCFILE           $HOME/.cshrc.$USER
+setenv TERM             xterm
+setenv PATH             /sbin:$HOME/bin:$PATH
+
+# For github
+setenv GITHUB           $HOME/github
+setenv PATH             $GITHUB/main/bin:$PATH
+setenv PYTHONPATH       $GITHUB/pylib:$PYTHONPATH
+setenv RCCMNFILE        $GITHUB/main/setup/.cshrc.common
+
+# Allow group permission
+umask 007
+
+# Disabling autocorrection and listmax prompt questions
+set correct             = command
+set listmax             = 10000
+set listmaxrows         = 1000
+
+# Command history remembered by the shell
+set history             = 1000
+set savehistory         = (2000 merge)
+
+# Command prompt
+if ($HOME == "/root") then
+    set prompt              = "$prompt\[%T `hostname -s` %c]# "
+else
+    set prompt              = "$prompt\[%T `hostname -s` %c]% "
+endif
+
+# Common aliases
+alias rc                'source $HOME/.cshrc'
+alias e                 'edit'
+alias erc               '$EDITOR $RCFILE'
+alias ercc              '$EDITOR $RCCMNFILE'
+alias ee                '(\!*) > /tmp/ee; $EDITOR /tmp/ee'
+alias ew                'which \!*; $EDITOR `which \!*`'
+alias ls                '/bin/ls -a --color=auto'
+alias cp                '/bin/cp -rf'
+alias k                 '/bin/kill -9'
+alias masskill          'ps | grep \!:1 | cut -f2 -d " " | xargs /bin/kill -9'
+alias q                 'exit'
+alias qqqqqq            'ps -U $USER -o pid= | xargs /bin/kill -9'
+alias psmy              'ps -ef | grep $USER'
+alias perf              'time /bin/ls . >/dev/null'
+alias path              'readlink -f \!*'
+alias x                 '(xterm -T `pwd` -e "\!*; csh" &)'
+alias hist              'history | grep "\!*" | grep -v hist'
+alias rdiff             'tkdiff \!:1 \!:2/\!:1 &'
+alias rndpath           'pwd | md5sum | cut -f1 -d" "'
+alias fixme             'grep "F\IXME" * -rs'
+alias fixmeme           'fixme | grep $USER'
+alias grepr             'grep \!* * -r'
+alias mailme            '& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
+
+alias recfg             'killall -s 9 -u $USER -e vncconfig; vncconfig -nowin &'
+alias reklip            'killall -s 9 -u $USER -e klipper; klipper &'
+alias rekwin            'killall -s 9 -u $USER -e kwin; kwin --replace &'
+alias rekde             'startkde &'
+
+alias gitroot           'git rev-parse --show-toplevel'
+alias gitparent         'git remote show origin | grep Fetch | sed "s/  Fetch URL: //"'
+alias gitcdpar          'cd `git parent`'
+alias gitstat           'find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "(echo {} && cd {} && git pull && git status -s && echo)" \;'
+

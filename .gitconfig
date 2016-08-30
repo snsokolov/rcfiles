@@ -1,0 +1,8 @@
+[user]
+	email = anonymous@users.noreply.github.com
+[push]
+	default = simple
+[alias]
+	pp = "! git citool; git pull; git push"
+	root = rev-parse --show-toplevel
+	parent = ! git remote show origin | grep Fetch | sed \"s/ Fetch URL: //\"
