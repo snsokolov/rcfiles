@@ -9,7 +9,7 @@ setenv PATH             /sbin:$HOME/bin:$PATH
 setenv GITHUB           $HOME/github
 setenv PATH             $GITHUB/main/bin:$PATH
 setenv PYTHONPATH       $GITHUB/pylib:$PYTHONPATH
-setenv RCCMNFILE        $GITHUB/rcfiles/setup/.cshrc.common
+setenv RCCMNFILE        $GITHUB/rcfiles/.cshrc.common
 
 # Allow group permission
 umask 007
