@@ -9,7 +9,7 @@ export PATH=/sbin:$HOME/bin:$PATH
 export GITHUB=$HOME/github
 export PATH=$GITHUB/main/bin:$PATH
 export PYTHONPATH=$GITHUB/pylib:$PYTHONPATH
-export RCCMNFILE=$GITHUB/main/setup/.bashrc.common
+export RCCMNFILE=$GITHUB/rcfiles/setup/.bashrc.common
 
 # Allow group permission
 umask 007
