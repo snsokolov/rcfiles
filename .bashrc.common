@@ -35,6 +35,7 @@ alias perf='time /bin/ls . >/dev/null'
 alias path='readlink -f'
 alias fixpath='cd `path .`'
 function x () { xterm -T `pwd` -e ""$@"; bash" & }
+function xrepeat() { xterm -T "xrepeat $@" -e "watch $@; bash" & }
 function hist () { history | grep "$@" | grep -v hist; }
 function rdiff () { tkdiff "$1" "$2"/"$1" & }
 alias rndpath='pwd | md5sum | cut -f1 -d" "'
