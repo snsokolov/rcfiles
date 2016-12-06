@@ -55,3 +55,5 @@ alias gitparent='git remote show origin | grep Fetch | sed "s/  Fetch URL: //"'
 alias gitcdpar='cd `git parent`'
 alias gitstat='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "(echo {} && cd {} && git pull && git status -s && echo)" \;'
 
+function tabname() { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
+

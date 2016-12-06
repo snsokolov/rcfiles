@@ -1,7 +1,7 @@
 # Exports
 setenv SHELL            /bin/tcsh
-setenv EDITOR           edit
-setenv RCFILE           $HOME/.cshrc.$USER
+setenv EDITOR           gvim
+setenv RCFILE           $HOME/.cshrc
 setenv TERM             xterm
 setenv PATH             /sbin:$HOME/bin:$PATH
 
@@ -32,7 +32,7 @@ endif
 
 # Common aliases
 alias rc                'source $HOME/.cshrc'
-alias e                 'edit'
+alias e                 '$EDITOR'
 alias erc               '$EDITOR $RCFILE'
 alias ercc              '$EDITOR $RCCMNFILE'
 alias ee                '(\!*) > /tmp/ee; $EDITOR /tmp/ee'
@@ -46,6 +46,7 @@ alias qqqqqq            'ps -U $USER -o pid= | xargs /bin/kill -9'
 alias psmy              'ps -ef | grep $USER'
 alias perf              'time /bin/ls . >/dev/null'
 alias path              'readlink -f \!*'
+alias fixpath           'cd `path .`'
 alias x                 '(xterm -T `pwd` -e "\!*; csh" &)'
 alias xrepeat           '(xterm -T "xrepeat \!*" -e "watch \!*; csh" &)'
 alias hist              'history | grep "\!*" | grep -v hist'
@@ -55,6 +56,7 @@ alias fixme             'grep "F\IXME" * -rs'
 alias fixmeme           'fixme | grep $USER'
 alias grepr             'grep \!* * -r'
 alias mailme            '& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
+alias replace           'find . -type f -exec sed -i "s/\!:1/\!:2/g" {} +'
 
 alias recfg             'killall -s 9 -u $USER -e vncconfig; vncconfig -nowin &'
 alias reklip            'killall -s 9 -u $USER -e klipper; klipper &'
@@ -65,4 +67,6 @@ alias gitroot           'git rev-parse --show-toplevel'
 alias gitparent         'git remote show origin | grep Fetch | sed "s/  Fetch URL: //"'
 alias gitcdpar          'cd `git parent`'
 alias gitstat           'find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "(echo {} && cd {} && git pull && git status -s && echo)" \;'
+
+alias tabname           'qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "\!:*" >> /dev/null'
 
