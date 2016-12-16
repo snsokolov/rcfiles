@@ -35,7 +35,6 @@ alias perf='time /bin/ls . >/dev/null'
 alias path='readlink -f'
 alias fixpath='cd `path .`'
 function x () { xterm -T `pwd` -e ""$@"; bash" & }
-function xrepeat() { xterm -T "xrepeat $@" -e "watch $@; bash" & }
 function hist () { history | grep "$@" | grep -v hist; }
 function rdiff () { tkdiff "$1" "$2"/"$1" & }
 alias rndpath='pwd | md5sum | cut -f1 -d" "'
@@ -44,6 +43,7 @@ alias fixmeme='fixme | grep $USER'
 function grepr { grep "$@" * -r; }
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
 function replace () { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
+function xrepeat() { R=/tmp/xrpt_`rndpath`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch $R; bash" & }
 
 alias recfg='killall -s 9 -u $USER -e vncconfig; vncconfig -nowin &'
 alias reklip='killall -s 9 -u $USER -e klipper; klipper &'
