@@ -1,7 +1,8 @@
 # rcfiles
 RC files for various tools
 
-    .bashrc.common and .cshrc.common - RC files for bash/csh shell
+    .bashrc.common - RC file for bash shell
+    .cshrc.common - RC file csh shell
     .gitconfig - RC file for git
 
 
