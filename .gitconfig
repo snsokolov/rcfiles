@@ -5,4 +5,7 @@
 [alias]
 	pp = "! git citool; git pull; git push"
 	root = rev-parse --show-toplevel
-	parent = ! git remote show origin | grep Fetch | sed \"s/ Fetch URL: //\"
+	parent = ! git remote show origin | grep Fetch | sed \"s/  Fetch URL: //\"
+	cdroot = ! cd `git root`
+	stat = "! (ls .git > /dev/null 2>&1 && git status) || find -maxdepth 1 -mindepth 1 -type d -exec sh -c 'echo {} && cd {} && git pull && git status -s && echo' \\;"
+

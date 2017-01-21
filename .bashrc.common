@@ -44,16 +44,5 @@ function grepr { grep "$@" * -r; }
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
 function replace () { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
 function xrepeat() { R=/tmp/xrpt_`rndpath`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch $R; bash" & }
-
-alias recfg='killall -s 9 -u $USER -e vncconfig; vncconfig -nowin &'
-alias reklip='killall -s 9 -u $USER -e klipper; klipper &'
-alias rekwin='killall -s 9 -u $USER -e kwin; kwin --replace &'
-alias rekde='startkde &'
-
-alias gitroot='git rev-parse --show-toplevel'
-alias gitparent='git remote show origin | grep Fetch | sed "s/  Fetch URL: //"'
-alias gitcdpar='cd `git parent`'
-alias gitstat='find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "(echo {} && cd {} && git pull && git status -s && echo)" \;'
-
 function tabname() { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
 
