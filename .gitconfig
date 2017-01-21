@@ -1,11 +1,24 @@
 [user]
-	email = anonymous@users.noreply.github.com
+    # Anonymous email address in Github history
+    email = anonymous@users.noreply.github.com
+
 [push]
-	default = simple
+    # Simplified way of pushing changes
+    default = simple
+
 [alias]
-	pp = "! git citool; git pull; git push"
-	root = rev-parse --show-toplevel
-	parent = ! git remote show origin | grep Fetch | sed \"s/  Fetch URL: //\"
-	cdroot = ! cd `git root`
-	stat = "! (ls .git > /dev/null 2>&1 && git status) || find -maxdepth 1 -mindepth 1 -type d -exec sh -c 'echo {} && cd {} && git pull && git status -s && echo' \\;"
+    # Git pull-push macro
+    pp = "! git citool; git pull; git push"
+
+    # Git root of reposiotry
+    root = rev-parse --show-toplevel
+
+    # GitChange directory to the root
+    cdroot = ! cd `git root`
+
+    # Parent repo of the repository
+    parent = ! git remote show origin | grep Fetch | sed \"s/  Fetch URL: //\"
+
+    # Git status on a directory of repos or a single repo
+    stat = "! (ls .git > /dev/null 2>&1 && git status) || find -maxdepth 1 -mindepth 1 -type d -exec sh -c 'echo {} && cd {} && git pull && git status -s && echo' \\;"
 
