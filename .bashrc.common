@@ -38,11 +38,13 @@ function x () { xterm -T `pwd` -e ""$@"; bash" & }
 function hist () { history | grep "$@" | grep -v hist; }
 function rdiff () { tkdiff "$1" "$2"/"$1" & }
 alias rndpath='pwd | md5sum | cut -f1 -d" "'
+alias rnd='date | md5sum | cut -f1 -d" "'
 alias fixme='grep "F\IXME" * -rs'
 alias fixmeme='fixme | grep $USER'
 function grepr { grep "$@" * -r; }
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
 function replace () { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
-function xrepeat() { R=/tmp/xrpt_`rndpath`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch $R; bash" & }
+function xrepeat() { R=/tmp/xrpt_`rnd`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch $R; bash" & }
+function xrepeatn() { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -n $2 $R; bash" & }
 function tabname() { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
 
