@@ -1,5 +1,8 @@
 [user]
-    # Anonymous email address in Github history
+    # Anonymous name for Github history
+    name = anonymous
+
+    # Anonymous email address for Github history
     email = anonymous@users.noreply.github.com
 
 [push]
