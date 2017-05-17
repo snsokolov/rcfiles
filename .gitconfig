@@ -3,7 +3,7 @@
     name = anonymous
 
     # Anonymous email address for Github history
-    email = anonymous@users.noreply.github.com
+    email = snsokolov@users.noreply.github.com
 
 [push]
     # Simplified way of pushing changes
