@@ -1,0 +1,18 @@
+
+" Source the common vimrc file
+source $HOME/github/vimrc_nedit/_vimrc
+
+" Tab equals to 2 spaces
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+" Disable swap file to allow multiple edits of the same file
+set noswapfile
+
+" Line length color column
+set colorcolumn=100
+
+" Set Window and Font size to a larger size
+set guifont=Monospace\ 10
+
