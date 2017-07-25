@@ -25,3 +25,5 @@
     # Git status on a directory of repos or a single repo
     stat = "! (ls .git > /dev/null 2>&1 && git status) || find -maxdepth 1 -mindepth 1 -type d -exec sh -c 'echo {} && cd {} && git pull && git status -s && echo' \\;"
 
+[http]
+	cookiefile = $HOME/.gitcookies
