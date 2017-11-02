@@ -44,7 +44,8 @@ alias fixmeme='fixme | grep $USER'
 function grepr { grep "$@" * -r; }
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
 function replace () { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
-function xrepeat() { R=/tmp/xrpt_`rnd`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -cd $R; bash" & }
-function xrepeatn() { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -cd -n $2 $R; bash" & }
-function tabname() { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
-function prepend_env() { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
+function xrepeat () { R=/tmp/xrpt_`rnd`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -cd $R; bash" & }
+function xrepeatn () { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -cd -n $2 $R; bash" & }
+function tabname () { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
+function prepend_env () { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
+function forever () { while true; do "$@"; sleep 0.5; done }
