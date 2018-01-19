@@ -44,8 +44,9 @@ alias fixmeme='fixme | grep $USER'
 function grepr { grep "$@" * -r; }
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
 function replace () { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
-function xrepeat () { R=/tmp/xrpt_`rnd`; echo "$@" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -cd $R; bash" & }
-function xrepeatn () { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; xterm -T "xrepeat `cat $R`" -e "watch -cd -n $2 $R; bash" & }
 function tabname () { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
 function prepend_env () { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
-function forever () { while true; do "$@"; sleep 0.5; done }
+function forevern () { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f forevern
+function forever () { forevern "$1" 1; }
+function xforevern () { xterm -T "xforevern $1 $2" -e "forevern $1 $2; bash" & }; export -f xforevern
+function xforever () { xforevern "$1" 1; }
