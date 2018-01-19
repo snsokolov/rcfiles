@@ -22,31 +22,31 @@ alias rc='source $HOME/.bashrc'
 alias e='$EDITOR'
 alias erc='$EDITOR $RCFILE'
 alias ercc='$EDITOR $RCCMNFILE'
-function ee () { ("$@") > /tmp/ee; $EDITOR /tmp/ee; }
-function ew () { which "$@"; $EDITOR `which "$@"`; }
+function ee { ("$@") > /tmp/ee; $EDITOR /tmp/ee; }
+function ew { which "$@"; $EDITOR `which "$@"`; }
 alias ls='/bin/ls -a --color=auto'
 alias cp='/bin/cp -rf'
 alias k='/bin/kill -9'
-function masskill () { ps | grep "$@" | cut -f2 -d " " | xargs /bin/kill -9; }
+function masskill { ps | grep "$@" | cut -f2 -d " " | xargs /bin/kill -9; }
 alias q='exit'
 alias qqqqqq='ps -U $USER -o pid= | xargs /bin/kill -9'
 alias psmy='ps -ef | grep $USER'
 alias perf='time /bin/ls . >/dev/null'
 alias path='readlink -f'
 alias fixpath='cd `path .`'
-function x () { xterm -T `pwd` -e ""$@"; bash" & }
-function hist () { history | grep "$@" | grep -v hist; }
-function rdiff () { tkdiff "$1" "$2"/"$1" & }
+function x { xterm -T `pwd` -e ""$@"; bash" & }
+function hist { history | grep "$@" | grep -v hist; }
+function rdiff { tkdiff "$1" "$2"/"$1" & }
 alias rndpath='pwd | md5sum | cut -f1 -d" "'
-alias rnd='date | md5sum | cut -f1 -d" "'
+function rnd { date +%N | md5sum | cut -f1 -d" "; }; export -f rnd
 alias fixme='grep "F\IXME" * -rs'
 alias fixmeme='fixme | grep $USER'
 function grepr { grep "$@" * -r; }
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
-function replace () { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
-function tabname () { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
-function prepend_env () { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
-function forevern () { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f forevern
-function forever () { forevern "$1" 1; }
-function xforevern () { xterm -T "xforevern $1 $2" -e "forevern $1 $2; bash" & }; export -f xforevern
-function xforever () { xforevern "$1" 1; }
+function replace { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
+function tabname { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
+function prepend_env { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
+function forevern { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f forevern
+function forever { forevern "$1" 1; }
+function xforevern { xterm -T "xforevern $1 $2" -e "forevern $1 $2; bash" & }; export -f xforevern
+function xforever { xforevern "$1" 1; }
