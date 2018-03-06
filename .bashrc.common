@@ -49,4 +49,4 @@ function prepend_env { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "expor
 function forevern { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f forevern
 function forever { forevern "$1" 1; }
 function xforevern { xterm -T "xforevern $1 $2" -e "forevern $1 $2; bash" & }; export -f xforevern
-function xforever { xforevern "$1" 1; }
+function xforever { xforevern "\"$1\"" 1; }
