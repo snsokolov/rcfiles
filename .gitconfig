@@ -11,6 +11,7 @@
 
 [alias]
     # Git pull-push macro
+    # Or run `git config --global alias.pp "! git citool; git pull; git push"`
     pp = "! git citool; git pull; git push"
 
     # Git root of reposiotry
