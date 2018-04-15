@@ -25,6 +25,7 @@ alias erc='$EDITOR $RCFILE'
 alias ercc='$EDITOR $RCCMNFILE'
 function ee { ("$@") > /tmp/ee; $EDITOR /tmp/ee; }
 function ew { which "$@"; $EDITOR `which "$@"`; }
+function re { $EDITOR scp://$1/$2; }
 alias ls='/bin/ls -a --color=auto'
 alias cp='/bin/cp -rf'
 alias k='/bin/kill -9'
