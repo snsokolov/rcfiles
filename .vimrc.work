@@ -1,6 +1,6 @@
 
 " Source the common vimrc file
-source $HOME/github/vimrc_nedit/_vimrc
+source $HOME/.vimrc.common
 
 " Tab equals to 2 spaces
 set tabstop=2
