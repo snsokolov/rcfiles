@@ -1,4 +1,5 @@
 #!/bin/bash
+cd $HOME
 mkdir -p github
 
 # Vimrc
