@@ -46,7 +46,7 @@ alias fixmeme='fixme | grep $USER'
 alias grepr='rgrep'
 alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /tmp/`rndpath`) | mail -s "Job CMD=`history -h 1` is done." $USER'
 function replace { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
-function tabname { qdbus org.kde.konsole $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
+function tabname { qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
 function prepend_env { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
 function forevern { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f forevern
 function forever { forevern "$1" 1; }
