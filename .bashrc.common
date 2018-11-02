@@ -36,11 +36,11 @@ alias psmy='ps -ef | grep $USER'
 alias perf='time /bin/ls . >/dev/null'
 alias path='readlink -f'
 alias fixpath='cd `path .`'
-function x { xterm -T `pwd` -e ""$@"; bash" & }
 function hist { history | grep "$@" | grep -v hist; }
 function rdiff { tkdiff "$1" "$2"/"$1" & }
 alias rndpath='pwd | md5sum | cut -f1 -d" "'
 function rnd { date +%N | md5sum | cut -f1 -d" "; }; export -f rnd
+function x { _OUT=/tmp/x`rnd`; echo "$@" > $_OUT; chmod u+x $_OUT; xterm -T `pwd` -e "$_OUT; bash" & }
 alias fixme='grep "F\IXME" * -rs'
 alias fixmeme='fixme | grep $USER'
 alias grepr='rgrep'
@@ -48,7 +48,7 @@ alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /
 function replace { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
 function tabname { qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
 function prepend_env { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
-function forevern { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f forevern
-function forever { forevern "$1" 1; }
-function xforevern { xterm -T "xforevern $1 $2" -e "forevern $1 $2; bash" & }; export -f xforevern
-function xforever { xforevern "\"$1\"" 1; }
+function repeatn { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f repeatn
+function repeat { repeatn "$1" 1; }
+function xrepeatn { xterm -T "xrepeatn $1 $2" -e "repeatn $1 $2; bash" & }; export -f xrepeatn
+function xrepeat { xrepeatn "\"$1\"" 1; }
