@@ -40,7 +40,8 @@ function hist { history | grep "$@" | grep -v hist; }
 function rdiff { tkdiff "$1" "$2"/"$1" & }
 alias rndpath='pwd | md5sum | cut -f1 -d" "'
 function rnd { date +%N | md5sum | cut -f1 -d" "; }; export -f rnd
-function x { _OUT=/tmp/x`rnd`; echo "$@" > $_OUT; chmod u+x $_OUT; xterm -T `pwd` -e "$_OUT; bash" & }
+function cmd2file { _CMD=/tmp/cmd_`rnd`; echo "$@" > $_CMD; chmod u+x $_CMD; echo $_CMD; }; export -f cmd2file
+function x { xterm -geometry 100x15+20+20 -T "$(echo $@)" -e "$(cmd2file $@); bash" & }
 alias fixme='grep "F\IXME" * -rs'
 alias fixmeme='fixme | grep $USER'
 alias grepr='rgrep'
@@ -48,7 +49,6 @@ alias mailme='& tee /tmp/`rndpath`; (echo $PWD \\n\\n`history -h 1`\\n\\n; cat /
 function replace { find . -type f -exec sed -i "s/$1/$2/g" {} +; }
 function tabname { qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION setTitle 1 "$@" >> /dev/null; }; export -f tabname
 function prepend_env { E=`eval echo "\$""$1"`; if test -n "$E"; then eval "export $1=$2:$E"; else eval "export $1=$2"; fi }
-function repeatn { R=/tmp/xrpt_`rnd`; echo "$1" > $R; chmod u+x $R; while true; do (clear; echo Every $2s: \'`cat $R`\' `date`; $R; sleep $2); done; }; export -f repeatn
-function repeat { repeatn "$1" 1; }
-function xrepeatn { xterm -T "xrepeatn $1 $2" -e "repeatn $1 $2; bash" & }; export -f xrepeatn
-function xrepeat { xrepeatn "\"$1\"" 1; }
+function repeatn { _R=$(cmd2file $1); while true; do (clear; echo Every $2s: \'$(cat $_R)\' `date`; $_R; sleep $2); done; }; export -f repeatn
+function repeat { repeatn $1 1; }; export -f repeat
+
